@@ -1,0 +1,24 @@
+/* Restricted Web Navigator - Android RevelScript
+   Required Web Page zone name: Web Page
+   The Web Page zone is the actual browser surface. The controller gadget sends
+   navigator.back and navigator.home commands through the Revel player API.
+*/
+
+import android.view.*;
+import com.reveldigital.player.api.*;
+
+Controller.addOnCommandListener(new OnCommandListener() {
+    onCommand(String name, String value) {
+        if (name.equals("navigator.back")) {
+            if (Web_Page.canGoBack()) {
+                Web_Page.goBack();
+            }
+        }
+
+        if (name.equals("navigator.home")) {
+            if (value != null && value.length() > 0) {
+                Web_Page.loadUrl(value);
+            }
+        }
+    }
+});

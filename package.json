@@ -1,0 +1,7 @@
+{
+  "name": "revel-restricted-web-navigator",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": { "build": "mkdir -p dist && cp -R navigator-webapp/* dist/" },
+  "dependencies": { "@reveldigital/client-sdk": "latest" }
+}

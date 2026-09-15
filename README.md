@@ -1,38 +1,25 @@
-# Revel Digital Restricted Web Navigator — V1
+# Revel Digital Restricted Web Navigator
 
-A simple Revel Digital Gadget that provides:
+## Architecture
 
-- Configurable Home URL
-- Back button
-- Home button
-- Embedded web content
-- No address bar
-- No persistent browser history implemented by the gadget
-- Touch-friendly navigation controls
+This version deliberately does **not** iframe ReadyOp. The Revel Digital **Web Page** zone is the browser surface, which avoids the iframe security failure encountered by V1. A transparent/visible Gadget zone sits above it and sends commands to the Android player script.
 
-## Test Home URL
+### Files
+- `navigator-controller/restricted-web-navigator.xml` — reusable Back/Home overlay gadget.
+- `navigator-webapp/index.html` — Webapp package placeholder/test target. It is retained as the new Webapp alongside V1, but the working production navigation uses the Web Page zone.
+- `revelscript-android.txt` — Android RevelScript for the template.
 
-The default Home URL is the ReadyOp form currently being used for testing:
+## Template setup
+1. Keep a **Web Page** zone named `Web Page` and put the desired Home URL in its `Uri` property.
+2. Add a **Gadget** zone using `navigator-controller/restricted-web-navigator.xml`.
+3. Set the gadget's `Home URL` to the same home URL.
+4. Put the Gadget zone above the Web Page zone in the template layer/order.
+5. Open RevelScript Editor, select Android, and paste `revelscript-android.txt`.
+6. Save/publish the template.
 
+The gadget sends `navigator.back` and `navigator.home` through the Revel Digital Client SDK. The Android script receives those commands and operates the Web Page control.
 
-The URL is a Revel Digital UserPref, so it can be changed from the gadget/template properties without editing this XML.
+## Important
+The `Home URL` default in the XML is intentionally `https://example.com`; replace it in the template. No ReadyOp URL is hard-coded into the reusable project.
 
-## Important V1 limitation
-
-The browser security model prevents a parent page from freely reading or controlling navigation history inside a cross-origin iframe. This means the first version cannot guarantee a complete Back function for every external website.
-
-ReadyOp-to-ReadyOp navigation and other embedded pages should be tested first.
-
-Some external websites may also prohibit iframe embedding with X-Frame-Options or Content-Security-Policy. The gadget cannot override those protections.
-
-## Files
-
-- `restricted-web-navigator.xml` — the Revel Digital Gadget
-- `README.md` — project notes
-
-## Deployment
-
-Host the XML at a stable HTTPS URL accessible by Revel Digital, such as GitHub Pages, then add that URL as a Gadget in Revel Digital.
-
-The current XML follows the traditional Revel Digital Gadget XML structure documented at:
-https://developer.reveldigital.com/gadgets/
+V1 remains unchanged and can continue to be used separately.
