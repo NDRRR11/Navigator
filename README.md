@@ -14,7 +14,6 @@ A simple Revel Digital Gadget that provides:
 
 The default Home URL is the ReadyOp form currently being used for testing:
 
-https://ro.eprops.hhs.nd.gov/fs/4hBg/78d0fb6f
 
 The URL is a Revel Digital UserPref, so it can be changed from the gadget/template properties without editing this XML.
 
