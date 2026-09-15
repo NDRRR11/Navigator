@@ -1,0 +1,33 @@
+/* Navigator controller: receive callbacks from the overlay Gadget through the Web Page zone. */
+
+Web_Page.addOnCallbackListener(new OnCallbackListener() {
+
+    onCallback(String[] args) {
+
+        if (args == null || args.length == 0) {
+            return;
+        }
+
+        String message = args[0];
+
+        if (message.equals("navigator.back")) {
+
+            if (Web_Page.canGoBack()) {
+                Web_Page.goBack();
+            }
+
+        }
+
+        if (message.startsWith("navigator.home|")) {
+
+            String homeUrl = message.substring("navigator.home|".length());
+
+            if (homeUrl != null && homeUrl.length() > 0) {
+                Web_Page.loadUrl(homeUrl);
+            }
+
+        }
+
+    }
+
+});
