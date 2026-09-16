@@ -1,0 +1,16 @@
+{
+  "name": "revel-navigator-webapp",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Reusable Back/Home navigator for Revel Digital Web Page zones",
+  "scripts": {
+    "build": "parcel build index.html --dist-dir dist --public-url ./",
+    "start": "parcel index.html"
+  },
+  "dependencies": {
+    "@reveldigital/client-sdk": "^1.0.0"
+  },
+  "devDependencies": {
+    "parcel": "^2.15.4"
+  }
+}
