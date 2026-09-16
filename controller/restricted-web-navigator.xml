@@ -22,7 +22,7 @@
       <button id="home">Home</button>
     </div>
 
-    <script type="module">
+    <script type="text/javascript">
       import { createPlayerClient } from "https://unpkg.com/@reveldigital/client-sdk@latest/dist/index.js";
 
       const client = createPlayerClient();
