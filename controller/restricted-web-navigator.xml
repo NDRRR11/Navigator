@@ -28,12 +28,33 @@ var prefs = new gadgets.Prefs();
 
 function onLoad() {
 
-    document.getElementById("back").onclick = function() {
-        document.getElementById("back").innerHTML = "BACK CLICKED";
+    var back = document.getElementById("back");
+    var home = document.getElementById("home");
+
+    back.onclick = function() {
+        if (window.RevelDigital &&
+            RevelDigital.Controller &&
+            RevelDigital.Controller.sendCommand) {
+
+            RevelDigital.Controller.sendCommand(
+                "navigator.back",
+                ""
+            );
+        }
     };
 
-    document.getElementById("home").onclick = function() {
-        document.getElementById("home").innerHTML = "HOME CLICKED";
+    home.onclick = function() {
+        var homeUrl = prefs.getString("homeUrl");
+
+        if (window.RevelDigital &&
+            RevelDigital.Controller &&
+            RevelDigital.Controller.sendCommand) {
+
+            RevelDigital.Controller.sendCommand(
+                "navigator.home",
+                homeUrl
+            );
+        }
     };
 
 }
