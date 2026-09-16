@@ -1,5 +1,6 @@
 <Module>
 <ModulePrefs title="Restricted Web Navigator Controller" description="Persistent Back and Home controls for a Revel Digital Web Page zone." author="Custom Gadget" background="transparent">
+
 <UserPref name="homeUrl" display_name="Home URL" datatype="string" default_value="" required="true"/>
 <UserPref name="buttonText" display_name="Button Text" datatype="string" default_value="Back|Home" required="true"/>
 <UserPref name="ForeColor" datatype="hidden"/>
@@ -7,12 +8,14 @@
 <UserPref name="rdW" display_name="Width" required="true" default_value="300" datatype="hidden"/>
 <UserPref name="rdH" display_name="Height" required="true" default_value="90" datatype="hidden"/>
 <UserPref name="rdKey" display_name="Device Registration Key" default_value="*|DEVICE.REGISTRATIONKEY|*" datatype="hidden"/>
+
 </ModulePrefs>
 
 <Content type="html">
 <![CDATA[
 
 <style>
+
 html, body {
     margin: 0;
     padding: 0;
@@ -46,6 +49,17 @@ button {
 button:active {
     background: rgba(70,70,70,.95);
 }
+
+</style>
+
+<div id="nav">
+
+    <button id="back">Back</button>
+
+    <button id="home">Home</button>
+
+</div>
+
 <script type="text/javascript">
 
 var prefs = new gadgets.Prefs();
@@ -57,45 +71,23 @@ function onLoad() {
 
     back.onclick = function() {
 
-        back.innerHTML = "TESTING...";
-
-        if (window.RevelDigital &&
-            RevelDigital.Controller &&
-            RevelDigital.Controller.sendCommand) {
-
-            back.innerHTML = "COMMAND AVAILABLE";
-
-        } else {
-
-            back.innerHTML = "NO COMMAND API";
-
-        }
+        back.innerHTML = "BACK TEST";
 
         window.setTimeout(function() {
             back.innerHTML = "Back";
         }, 2000);
+
     };
 
 
     home.onclick = function() {
 
-        home.innerHTML = "TESTING...";
-
-        if (window.RevelDigital &&
-            RevelDigital.Controller &&
-            RevelDigital.Controller.sendCommand) {
-
-            home.innerHTML = "VERSION 2 TEST";
-
-        } else {
-
-            home.innerHTML = "NO COMMAND API";
-
-        }
+        home.innerHTML = "HOME TEST";
 
         window.setTimeout(function() {
             home.innerHTML = "Home";
         }, 2000);
+
     };
 
 }
@@ -105,5 +97,6 @@ gadgets.util.registerOnLoadHandler(onLoad);
 </script>
 
 ]]>
+
 </Content>
 </Module>
