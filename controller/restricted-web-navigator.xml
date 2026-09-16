@@ -92,68 +92,52 @@
 
     var prefs = new gadgets.Prefs();
 
-    function onLoad() {
+function onLoad() {
 
-      var back = document.getElementById("back");
-      var home = document.getElementById("home");
+    var back = document.getElementById("back");
+    var home = document.getElementById("home");
 
-      back.onclick = function() {
+    back.onclick = function() {
 
-        if (window.Client &&
-            typeof window.Client.sendCommand === "function") {
+        back.innerHTML = "SENDING...";
 
-          back.innerHTML = "SENDING...";
+        if (window.revelDigital &&
+            typeof window.revelDigital.callback === "function") {
 
-          window.Client.sendCommand(
-            "navigator.back",
-            ""
-          );
-
-          window.setTimeout(function() {
-            back.innerHTML = "Back";
-          }, 1000);
+            window.revelDigital.callback("back");
 
         } else {
 
-          back.innerHTML = "NO BRIDGE";
-
-          window.setTimeout(function() {
-            back.innerHTML = "Back";
-          }, 2000);
+            back.innerHTML = "NO CALLBACK";
         }
-      };
 
-      home.onclick = function() {
+        window.setTimeout(function() {
+            back.innerHTML = "Back";
+        }, 1000);
+    };
 
-        var homeUrl = prefs.getString("homeUrl");
+    home.onclick = function() {
 
-        if (window.Client &&
-            typeof window.Client.sendCommand === "function") {
+        home.innerHTML = "SENDING...";
 
-          home.innerHTML = "SENDING...";
+        if (window.revelDigital &&
+            typeof window.revelDigital.callback === "function") {
 
-          window.Client.sendCommand(
-            "navigator.home",
-            homeUrl
-          );
-
-          window.setTimeout(function() {
-            home.innerHTML = "Home";
-          }, 1000);
+            window.revelDigital.callback("home");
 
         } else {
 
-          home.innerHTML = "NO BRIDGE";
-
-          window.setTimeout(function() {
-            home.innerHTML = "Home";
-          }, 2000);
+            home.innerHTML = "NO CALLBACK";
         }
-      };
-    }
 
-    gadgets.util.registerOnLoadHandler(onLoad);
+        window.setTimeout(function() {
+            home.innerHTML = "Home";
+        }, 1000);
+    };
+}
 
+gadgets.util.registerOnLoadHandler(onLoad);
+    
   </script>
 
   ]]>
