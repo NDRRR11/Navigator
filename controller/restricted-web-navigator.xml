@@ -62,25 +62,91 @@ function onLoad() {
     var back = document.getElementById("back");
     var home = document.getElementById("home");
 
-    back.onclick = function() {
+    /*
+     * Load the Revel Digital Client SDK.
+     */
+    var sdk = document.createElement("script");
 
-        back.innerHTML = "BACK TEST";
+    sdk.src = "https://unpkg.com/@reveldigital/client-sdk/dist/index.js";
 
-        window.setTimeout(function() {
-            back.innerHTML = "Back";
-        }, 2000);
+    sdk.onload = function() {
+
+        back.onclick = function() {
+
+            back.innerHTML = "BACK SENDING";
+
+            try {
+
+                var client = RevelDigital.createPlayerClient();
+
+                client.sendCommand(
+                    "navigator.back",
+                    ""
+                );
+
+            } catch (e) {
+
+                back.innerHTML = "BACK ERROR";
+
+            }
+
+            window.setTimeout(function() {
+                back.innerHTML = "Back";
+            }, 2000);
+
+        };
+
+
+        home.onclick = function() {
+
+            home.innerHTML = "HOME SENDING";
+
+            try {
+
+                var client = RevelDigital.createPlayerClient();
+
+                var homeUrl = prefs.getString("homeUrl");
+
+                client.sendCommand(
+                    "navigator.home",
+                    homeUrl
+                );
+
+            } catch (e) {
+
+                home.innerHTML = "HOME ERROR";
+
+            }
+
+            window.setTimeout(function() {
+                home.innerHTML = "Home";
+            }, 2000);
+
+        };
 
     };
 
-    home.onclick = function() {
+    sdk.onerror = function() {
 
-        home.innerHTML = "HOME TEST";
+        back.onclick = function() {
+            back.innerHTML = "SDK FAILED";
 
-        window.setTimeout(function() {
-            home.innerHTML = "Home";
-        }, 2000);
+            window.setTimeout(function() {
+                back.innerHTML = "Back";
+            }, 2000);
+        };
+
+        home.onclick = function() {
+            home.innerHTML = "SDK FAILED";
+
+            window.setTimeout(function() {
+                home.innerHTML = "Home";
+            }, 2000);
+        };
 
     };
+
+    document.head.appendChild(sdk);
 
 }
 
