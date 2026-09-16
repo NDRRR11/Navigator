@@ -22,7 +22,7 @@
       <button id="home">Home</button>
     </div>
 
-    <script type="text/javascript">
+<script type="text/javascript">
 
 var prefs = new gadgets.Prefs();
 
