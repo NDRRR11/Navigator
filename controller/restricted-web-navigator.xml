@@ -85,7 +85,7 @@ function onLoad() {
             RevelDigital.Controller &&
             RevelDigital.Controller.sendCommand) {
 
-            home.innerHTML = "COMMAND AVAILABLE";
+            home.innerHTML = "VERSION 2 TEST";
 
         } else {
 
