@@ -46,6 +46,13 @@ button {
 button:active {
     background: rgba(70,70,70,.95);
 }
+</style>
+
+<div id="nav">
+    <button id="back">Back</button>
+    <button id="home">Home</button>
+</div>
+
 <script type="text/javascript">
 
 var prefs = new gadgets.Prefs();
@@ -57,66 +64,22 @@ function onLoad() {
 
     back.onclick = function() {
 
-        back.innerHTML = "SENDING BACK";
-
-        /*
-         * Send a command to the Revel Digital player.
-         */
-        if (window.RevelDigital &&
-            RevelDigital.Controller &&
-            RevelDigital.Controller.sendCommand) {
-
-            RevelDigital.Controller.sendCommand(
-                "navigator.back",
-                ""
-            );
-
-        } else {
-
-            back.innerHTML = "NO CONTROLLER";
-
-            window.setTimeout(function() {
-                back.innerHTML = "Back";
-            }, 1500);
-
-            return;
-        }
+        back.innerHTML = "BACK CLICKED";
 
         window.setTimeout(function() {
             back.innerHTML = "Back";
         }, 1000);
-    };
 
+    };
 
     home.onclick = function() {
 
-        home.innerHTML = "SENDING HOME";
-
-        var homeUrl = prefs.getString("homeUrl");
-
-        if (window.RevelDigital &&
-            RevelDigital.Controller &&
-            RevelDigital.Controller.sendCommand) {
-
-            RevelDigital.Controller.sendCommand(
-                "navigator.home",
-                homeUrl
-            );
-
-        } else {
-
-            home.innerHTML = "NO CONTROLLER";
-
-            window.setTimeout(function() {
-                home.innerHTML = "Home";
-            }, 1500);
-
-            return;
-        }
+        home.innerHTML = "HOME CLICKED";
 
         window.setTimeout(function() {
             home.innerHTML = "Home";
         }, 1000);
+
     };
 
 }
