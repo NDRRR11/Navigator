@@ -23,20 +23,24 @@
     </div>
 
     <script type="text/javascript">
-      import { createPlayerClient } from "https://unpkg.com/@reveldigital/client-sdk@latest/dist/index.js";
 
-      const client = createPlayerClient();
-      const prefs = new gadgets.Prefs();
-      const homeUrl = prefs.getString("homeUrl") || "";
+var prefs = new gadgets.Prefs();
 
-      document.getElementById("back").addEventListener("click", () => {
-        client.sendCommand("navigator.back", "");
-      });
+function onLoad() {
 
-      document.getElementById("home").addEventListener("click", () => {
-        client.sendCommand("navigator.home", homeUrl);
-      });
-    </script>
+    document.getElementById("back").onclick = function() {
+        document.getElementById("back").innerHTML = "BACK CLICKED";
+    };
+
+    document.getElementById("home").onclick = function() {
+        document.getElementById("home").innerHTML = "HOME CLICKED";
+    };
+
+}
+
+gadgets.util.registerOnLoadHandler(onLoad);
+
+</script>
    ]]>
 </Content>
 </Module>
