@@ -8,19 +8,50 @@
 <UserPref name="rdH" display_name="Height" required="true" default_value="90" datatype="hidden"/>
 <UserPref name="rdKey" display_name="Device Registration Key" default_value="*|DEVICE.REGISTRATIONKEY|*" datatype="hidden"/>
 </ModulePrefs>
-<Content type="html">
-<![CDATA[ 
-    <style>
-      html, body { margin:0; padding:0; width:100%; height:100%; overflow:hidden; background:transparent; }
-      #nav { width:100%; height:100%; display:flex; align-items:center; gap:8px; box-sizing:border-box; padding:8px; }
-      button { flex:1; height:100%; min-width:0; border:1px solid rgba(255,255,255,.35); border-radius:8px; background:rgba(20,20,20,.88); color:#fff; font:600 22px Arial,sans-serif; }
-      button:active { background:rgba(70,70,70,.95); }
-    </style>
 
-    <div id="nav">
-      <button id="back">Back</button>
-      <button id="home">Home</button>
-    </div>
+<Content type="html">
+<![CDATA[
+
+<style>
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: transparent;
+}
+
+#nav {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-sizing: border-box;
+    padding: 8px;
+}
+
+button {
+    flex: 1;
+    height: 100%;
+    min-width: 0;
+    border: 1px solid rgba(255,255,255,.35);
+    border-radius: 8px;
+    background: rgba(20,20,20,.88);
+    color: #fff;
+    font: 600 22px Arial, sans-serif;
+}
+
+button:active {
+    background: rgba(70,70,70,.95);
+}
+</style>
+
+<div id="nav">
+    <button id="back">Back</button>
+    <button id="home">Home</button>
+</div>
 
 <script type="text/javascript">
 
@@ -32,19 +63,23 @@ function onLoad() {
     var home = document.getElementById("home");
 
     back.onclick = function() {
+
         back.innerHTML = "BACK CLICKED";
 
         window.setTimeout(function() {
             back.innerHTML = "Back";
         }, 1000);
+
     };
 
     home.onclick = function() {
+
         home.innerHTML = "HOME CLICKED";
 
         window.setTimeout(function() {
             home.innerHTML = "Home";
         }, 1000);
+
     };
 
 }
@@ -52,6 +87,7 @@ function onLoad() {
 gadgets.util.registerOnLoadHandler(onLoad);
 
 </script>
-   ]]>
+
+]]>
 </Content>
 </Module>
