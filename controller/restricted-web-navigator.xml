@@ -46,13 +46,6 @@ button {
 button:active {
     background: rgba(70,70,70,.95);
 }
-</style>
-
-<div id="nav">
-    <button id="back">Back</button>
-    <button id="home">Home</button>
-</div>
-
 <script type="text/javascript">
 
 var prefs = new gadgets.Prefs();
@@ -64,22 +57,45 @@ function onLoad() {
 
     back.onclick = function() {
 
-        back.innerHTML = "BACK CLICKED";
+        back.innerHTML = "TESTING...";
+
+        if (window.RevelDigital &&
+            RevelDigital.Controller &&
+            RevelDigital.Controller.sendCommand) {
+
+            back.innerHTML = "COMMAND AVAILABLE";
+
+        } else {
+
+            back.innerHTML = "NO COMMAND API";
+
+        }
 
         window.setTimeout(function() {
             back.innerHTML = "Back";
-        }, 1000);
-
+        }, 2000);
     };
+
 
     home.onclick = function() {
 
-        home.innerHTML = "HOME CLICKED";
+        home.innerHTML = "TESTING...";
+
+        if (window.RevelDigital &&
+            RevelDigital.Controller &&
+            RevelDigital.Controller.sendCommand) {
+
+            home.innerHTML = "COMMAND AVAILABLE";
+
+        } else {
+
+            home.innerHTML = "NO COMMAND API";
+
+        }
 
         window.setTimeout(function() {
             home.innerHTML = "Home";
-        }, 1000);
-
+        }, 2000);
     };
 
 }
