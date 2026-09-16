@@ -32,29 +32,19 @@ function onLoad() {
     var home = document.getElementById("home");
 
     back.onclick = function() {
-        if (window.RevelDigital &&
-            RevelDigital.Controller &&
-            RevelDigital.Controller.sendCommand) {
-
-            RevelDigital.Controller.sendCommand(
-                "navigator.back",
-                ""
-            );
-        }
+        back.innerHTML = "BACK CLICKED";
+        
+        window.setTimeout(function() {
+            back.innerHTML = "Back";
+        }, 1000);
     };
 
     home.onclick = function() {
-        var homeUrl = prefs.getString("homeUrl");
-
-        if (window.RevelDigital &&
-            RevelDigital.Controller &&
-            RevelDigital.Controller.sendCommand) {
-
-            RevelDigital.Controller.sendCommand(
-                "navigator.home",
-                homeUrl
-            );
-        }
+        home.innerHTML = "HOME CLICKED";
+        
+        window.setTimeout(function() {
+            home.innerHTML = "Home";
+        }, 1000);
     };
 
 }
