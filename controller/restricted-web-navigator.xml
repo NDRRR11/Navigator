@@ -30,11 +30,11 @@
       const homeUrl = prefs.getString("homeUrl") || "";
 
       document.getElementById("back").addEventListener("click", () => {
-        client.callback("navigator.back", "");
+        client.sendCommand("navigator.back", "");
       });
 
       document.getElementById("home").addEventListener("click", () => {
-        client.callback("navigator.home", homeUrl);
+        client.sendCommand("navigator.home", homeUrl);
       });
     </script>
    ]]>
