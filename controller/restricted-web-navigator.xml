@@ -1,159 +1,161 @@
 <Module>
-<ModulePrefs title="Restricted Web Navigator Controller" description="Persistent Back and Home controls for a Revel Digital Web Page zone." author="Custom Gadget" background="transparent">
-<UserPref name="homeUrl" display_name="Home URL" datatype="string" default_value="" required="true"/>
-<UserPref name="buttonText" display_name="Button Text" datatype="string" default_value="Back|Home" required="true"/>
-<UserPref name="ForeColor" datatype="hidden"/>
-<UserPref name="BackColor" datatype="hidden"/>
-<UserPref name="rdW" display_name="Width" required="true" default_value="300" datatype="hidden"/>
-<UserPref name="rdH" display_name="Height" required="true" default_value="90" datatype="hidden"/>
-<UserPref name="rdKey" display_name="Device Registration Key" default_value="*|DEVICE.REGISTRATIONKEY|*" datatype="hidden"/>
-</ModulePrefs>
+  <ModulePrefs
+      title="Restricted Web Navigator Controller"
+      description="Back and Home controls for a Revel Digital Web Page."
+      author="Custom Gadget"
+      background="transparent">
 
-<Content type="html">
-<![CDATA[ 
+    <UserPref
+        name="homeUrl"
+        display_name="Home URL"
+        datatype="string"
+        default_value=""
+        required="true"/>
 
-<style>
-html, body {
-    margin:0;
-    padding:0;
-    width:100%;
-    height:100%;
-    overflow:hidden;
-    background:transparent;
-}
+    <UserPref
+        name="buttonText"
+        display_name="Button Text"
+        datatype="string"
+        default_value="Back|Home"
+        required="true"/>
 
-#nav {
-    width:100%;
-    height:100%;
-    display:flex;
-    align-items:center;
-    gap:8px;
-    box-sizing:border-box;
-    padding:8px;
-}
+    <UserPref name="ForeColor" datatype="hidden"/>
+    <UserPref name="BackColor" datatype="hidden"/>
 
-button {
-    flex:1;
-    height:100%;
-    min-width:0;
-    border:1px solid rgba(255,255,255,.35);
-    border-radius:8px;
-    background:rgba(20,20,20,.88);
-    color:#fff;
-    font:600 22px Arial,sans-serif;
-}
+    <UserPref
+        name="rdW"
+        display_name="Width"
+        required="true"
+        default_value="300"
+        datatype="hidden"/>
 
-button:active {
-    background:rgba(70,70,70,.95);
-}
-</style>
+    <UserPref
+        name="rdH"
+        display_name="Height"
+        required="true"
+        default_value="90"
+        datatype="hidden"/>
 
-<div id="nav">
+    <UserPref
+        name="rdKey"
+        display_name="Device Registration Key"
+        default_value="*|DEVICE.REGISTRATIONKEY|*"
+        datatype="hidden"/>
+
+  </ModulePrefs>
+
+  <Content type="html">
+  <![CDATA[
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: transparent;
+    }
+
+    #nav {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-sizing: border-box;
+      padding: 8px;
+    }
+
+    button {
+      flex: 1;
+      height: 100%;
+      min-width: 0;
+      border: 1px solid rgba(255,255,255,.35);
+      border-radius: 8px;
+      background: rgba(20,20,20,.88);
+      color: #fff;
+      font: 600 22px Arial, sans-serif;
+    }
+
+    button:active {
+      background: rgba(70,70,70,.95);
+    }
+  </style>
+
+  <div id="nav">
     <button id="back">Back</button>
     <button id="home">Home</button>
-</div>
+  </div>
 
-<script type="text/javascript">
+  <script type="text/javascript">
 
-var prefs = new gadgets.Prefs();
+    var prefs = new gadgets.Prefs();
 
-function onLoad() {
+    function onLoad() {
 
-    var back = document.getElementById("back");
-    var home = document.getElementById("home");
+      var back = document.getElementById("back");
+      var home = document.getElementById("home");
 
-    /*
-     * Load the Revel Digital Client SDK.
-     */
-    var sdk = document.createElement("script");
+      back.onclick = function() {
 
-    sdk.src = "https://unpkg.com/@reveldigital/client-sdk/dist/index.js";
+        if (window.Client &&
+            typeof window.Client.sendCommand === "function") {
 
-    sdk.onload = function() {
+          back.innerHTML = "SENDING...";
 
-        back.onclick = function() {
+          window.Client.sendCommand(
+            "navigator.back",
+            ""
+          );
 
-            back.innerHTML = "BACK SENDING";
+          window.setTimeout(function() {
+            back.innerHTML = "Back";
+          }, 1000);
 
-            try {
+        } else {
 
-                var client = RevelDigital.createPlayerClient();
+          back.innerHTML = "NO BRIDGE";
 
-                client.sendCommand(
-                    "navigator.back",
-                    ""
-                );
+          window.setTimeout(function() {
+            back.innerHTML = "Back";
+          }, 2000);
+        }
+      };
 
-            } catch (e) {
+      home.onclick = function() {
 
-                back.innerHTML = "BACK ERROR";
+        var homeUrl = prefs.getString("homeUrl");
 
-            }
+        if (window.Client &&
+            typeof window.Client.sendCommand === "function") {
 
-            window.setTimeout(function() {
-                back.innerHTML = "Back";
-            }, 2000);
+          home.innerHTML = "SENDING...";
 
-        };
+          window.Client.sendCommand(
+            "navigator.home",
+            homeUrl
+          );
 
+          window.setTimeout(function() {
+            home.innerHTML = "Home";
+          }, 1000);
 
-        home.onclick = function() {
+        } else {
 
-            home.innerHTML = "HOME SENDING";
+          home.innerHTML = "NO BRIDGE";
 
-            try {
+          window.setTimeout(function() {
+            home.innerHTML = "Home";
+          }, 2000);
+        }
+      };
+    }
 
-                var client = RevelDigital.createPlayerClient();
+    gadgets.util.registerOnLoadHandler(onLoad);
 
-                var homeUrl = prefs.getString("homeUrl");
+  </script>
 
-                client.sendCommand(
-                    "navigator.home",
-                    homeUrl
-                );
-
-            } catch (e) {
-
-                home.innerHTML = "HOME ERROR";
-
-            }
-
-            window.setTimeout(function() {
-                home.innerHTML = "Home";
-            }, 2000);
-
-        };
-
-    };
-
-    sdk.onerror = function() {
-
-        back.onclick = function() {
-            back.innerHTML = "SDK FAILED";
-
-            window.setTimeout(function() {
-                back.innerHTML = "Back";
-            }, 2000);
-        };
-
-        home.onclick = function() {
-            home.innerHTML = "SDK FAILED";
-
-            window.setTimeout(function() {
-                home.innerHTML = "Home";
-            }, 2000);
-        };
-
-    };
-
-    document.head.appendChild(sdk);
-
-}
-
-gadgets.util.registerOnLoadHandler(onLoad);
-
-</script>
-
-]]>
-</Content>
+  ]]>
+  </Content>
 </Module>
