@@ -1,0 +1,21 @@
+/* Navigator Android player script.
+   The Navigator Gadget sends player commands; this script receives them
+   and controls the Revel Web Page zone named exactly: Web Page
+*/
+
+Controller.addOnCommandListener(new OnCommandListener() {
+    onCommand(String name, String value) {
+
+        if (name.equals("navigator.back")) {
+            if (Web_Page.canGoBack()) {
+                Web_Page.goBack();
+            }
+        }
+
+        if (name.equals("navigator.home")) {
+            if (value != null && value.length() > 0) {
+                Web_Page.loadUrl(value);
+            }
+        }
+    }
+});
